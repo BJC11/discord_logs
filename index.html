@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ethical or Unethical? - Discord Log Challenge</title>
+  <title>Cyber Careers Chat Challenge</title>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -62,9 +62,9 @@
   <div class="log-container">
     <div class="chat" id="chat"></div>
     <div class="options">
-      <button onclick="checkAnswer('Ethical')">Ethical</button>
-      <button onclick="checkAnswer('Unethical')">Unethical</button>
-      <button onclick="checkAnswer('Gray area')">Gray area</button>
+      <button onclick="checkAnswer('Penetration Tester')">Penetration Tester</button>
+      <button onclick="checkAnswer('Cybersecurity Analyst')">Cybersecurity Analyst</button>
+      <button onclick="checkAnswer('Incident Responder')">Incident Responder</button>
     </div>
     <div id="feedback"></div>
     <div id="passphrase"></div>
@@ -76,25 +76,28 @@
   <script>
     const logs = [
       {
-        chat: `<span class="username">ByteStorm</span>: I have found an unprotected port in the city’s main power plant control system. It could shut down half the grid. Easy.<br>
-               <span class="username">Raven</span>: Do it. They need to pay attention.<br>
-               <span class="username">Glitch</span>: Nah, dropping them a warning email should be enough.`,
-        answer: 'Gray area'
+        chat: `<span class="username">NOVA</span>: Just finished simulating a phishing attack on our internal network. 3 people clicked. Reporting the results now.<br>
+               <span class="username">Talon</span>: That's solid work. Helps us prep training next week.<br>
+               <em><strong>[Hint]</strong>: The person is hired to test company defenses by simulating real-world attacks.</em>`,
+        answer: 'Penetration Tester'
       },
       {
-        chat: `<span class="username">Hex</span>: Took down the grid in a small town. The client paid well.<br>
-               <span class="username">Vortex</span>: Collateral damage? Not our prob.`,
-        answer: 'Unethical'
+        chat: `<span class="username">Trace</span>: The SIEM flagged a spike in outbound traffic from finance servers. Investigating possible exfil.<br>
+               <span class="username">ByteWolf</span>: Good eye, Trace. Let’s pull logs from 3 AM onward.<br>
+               <em><strong>[Hint]</strong>: This person monitors systems daily, analyzing threats and writing detailed reports.</em>`,
+        answer: 'Cybersecurity Analyst'
       },
       {
-        chat: `<span class="username">CipherQueen</span>: Released internal emails from a power company to expose dangerous practices.<br>
-               <span class="username">Glitch</span>: Was that legal to release?` ,
-        answer: 'Gray area'
+        chat: `<span class="username">Jinx</span>: Confirmed ransomware in the east office network. Isolating the affected machines.<br>
+               <span class="username">Zero</span>: Alert the team, I'll start the incident report.<br>
+               <em><strong>[Hint]</strong>: They are trained to respond fast when systems are under attack.</em>`,
+        answer: 'Incident Responder'
       },
       {
-        chat: `<span class="username">Raven</span>: Slipped into MegaEnergy’s system, patched their vulnerability, didn’t touch anything else.<br>
-               <span class="username">Hex</span>: Without permission? Brave.`,
-        answer: 'Gray area'
+        chat: `<span class="username">Nyx</span>: Testing an exploit against our cloud-based VPN before deployment.<br>
+               <span class="username">Sprocket</span>: Let me know if it passes. We need that security hardening done by Friday.<br>
+               <em><strong>[Hint]</strong>: They search for weaknesses before attackers can exploit them.</em>`,
+        answer: 'Penetration Tester'
       }
     ];
 
@@ -111,8 +114,7 @@
     }
 
     function checkAnswer(choice) {
-      if (choice === logs[current].answer ||
-          (choice === 'Unethical' && logs[current].answer === 'Black Hat')) {
+      if (choice === logs[current].answer) {
         correctSound.play();
         feedbackElement.innerText = 'Correct!';
         feedbackElement.style.color = '#43b581';
@@ -120,7 +122,7 @@
         if (current < logs.length) {
           setTimeout(loadChat, 1000);
         } else {
-          passphraseElement.innerText = 'Passphrase: GRID-SECURE-2025';
+          passphraseElement.innerText = 'Passphrase: CYBER-FUTURE-2025';
         }
       } else {
         wrongSound.play();
