@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ethical or Unethical? - Discord Log Challenge</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #2c2f33;
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      padding: 20px;
+    }
+    .log-container {
+      background-color: #23272a;
+      border-radius: 10px;
+      padding: 20px;
+      max-width: 600px;
+      width: 100%;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+    .chat {
+      background-color: #2f3136;
+      padding: 15px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+    .username {
+      color: #7289da;
+      font-weight: bold;
+    }
+    .options button {
+      background-color: #7289da;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      margin: 5px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .options button:hover {
+      background-color: #5b6eae;
+    }
+    #feedback {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    #passphrase {
+      margin-top: 20px;
+      font-size: 1.2em;
+      color: #43b581;
+    }
+  </style>
+</head>
+<body>
+  <div class="log-container">
+    <div class="chat" id="chat"></div>
+    <div class="options">
+      <button onclick="checkAnswer('Ethical')">Ethical</button>
+      <button onclick="checkAnswer('Unethical')">Unethical</button>
+      <button onclick="checkAnswer('Gray area')">Gray area</button>
+    </div>
+    <div id="feedback"></div>
+    <div id="passphrase"></div>
+  </div>
+
+  <audio id="correctSound" src="https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg"></audio>
+  <audio id="wrongSound" src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg"></audio>
+
+  <script>
+    const logs = [
+      {
+        chat: `<span class="username">ByteStorm</span>: I have found an unprotected port in the city’s main power plant control system. It could shut down half the grid. Easy.<br>
+               <span class="username">Raven</span>: Do it. They need to pay attention.<br>
+               <span class="username">Glitch</span>: Nah, dropping them a warning email should be enough.`,
+        answer: 'Gray area'
+      },
+      {
+        chat: `<span class="username">Hex</span>: Took down the grid in a small town. The client paid well.<br>
+               <span class="username">Vortex</span>: Collateral damage? Not our prob.`,
+        answer: 'Unethical'
+      },
+      {
+        chat: `<span class="username">CipherQueen</span>: Released internal emails from a power company to expose dangerous practices.<br>
+               <span class="username">Glitch</span>: Was that legal to release?` ,
+        answer: 'Gray area'
+      },
+      {
+        chat: `<span class="username">Raven</span>: Slipped into MegaEnergy’s system, patched their vulnerability, didn’t touch anything else.<br>
+               <span class="username">Hex</span>: Without permission? Brave.`,
+        answer: 'Gray area'
+      }
+    ];
+
+    let current = 0;
+    const chatElement = document.getElementById('chat');
+    const feedbackElement = document.getElementById('feedback');
+    const passphraseElement = document.getElementById('passphrase');
+    const correctSound = document.getElementById('correctSound');
+    const wrongSound = document.getElementById('wrongSound');
+
+    function loadChat() {
+      chatElement.innerHTML = logs[current].chat;
+      feedbackElement.innerText = '';
+    }
+
+    function checkAnswer(choice) {
+      if (choice === logs[current].answer ||
+          (choice === 'Unethical' && logs[current].answer === 'Black Hat')) {
+        correctSound.play();
+        feedbackElement.innerText = 'Correct!';
+        feedbackElement.style.color = '#43b581';
+        current++;
+        if (current < logs.length) {
+          setTimeout(loadChat, 1000);
+        } else {
+          passphraseElement.innerText = 'Passphrase: GRID-SECURE-2025';
+        }
+      } else {
+        wrongSound.play();
+        feedbackElement.innerText = 'Incorrect. Try again.';
+        feedbackElement.style.color = '#f04747';
+      }
+    }
+
+    loadChat();
+  </script>
+</body>
+</html>
